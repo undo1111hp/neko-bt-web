@@ -1,15 +1,64 @@
-# Express Practice App (Nekopara UX)
+# Nekopara Session House
 
-Ung dung thuc hanh Routing, Cookie, Session, dang nhap co ban va kiem soat truy cap.
-Frontend da duoc nang cap theo chu de Anime Nekopara.
+A simple Express.js practice project for:
 
-## 1. Cai dat
+- Routing
+- Cookies
+- Sessions
+- Basic login handling
+- Access control based on authentication state
+
+The frontend uses a Nekopara-inspired visual style with smooth theme transitions, toast notifications, and mascot assets.
+
+## Features
+
+- Session-based login (no database required)
+- Theme switching with cookie persistence (`light` and `dark`)
+- Protected profile page
+- Per-session profile visit counter
+- Logout and session cleanup
+- Browser-friendly 404/500 pages
+- JSON-compatible API behavior for testing clients
+
+## Routes
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/` | Home page (HTML) or JSON summary |
+| GET | `/login` | Login page (HTML) or JSON login guide |
+| POST | `/login` | Authenticate user and create session |
+| GET | `/profile` | Protected profile page / profile JSON |
+| GET | `/logout` | Destroy session and clear auth state |
+| GET | `/set-theme/:theme` | Save theme (`light` or `dark`) in cookie |
+
+## Theme Labels
+
+- `light` -> `Vanilla Day`
+- `dark` -> `Midnight Cat`
+
+## Demo Accounts
+
+- `alice / alice123`
+- `bob / bob123`
+- `demo / demo123`
+
+## Tech Stack
+
+- Node.js
+- Express
+- express-session
+- cookie-parser
+- Playwright (E2E tests)
+
+## Setup
+
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Tao file .env tu .env.example:
+Create an `.env` file (you can copy from `.env.example`):
 
 ```env
 PORT=3000
@@ -18,96 +67,60 @@ SESSION_COOKIE_MAX_AGE_MS=1800000
 THEME_COOKIE_MAX_AGE_MS=604800000
 ```
 
-## 2. Chay app
+Run in development mode:
 
 ```bash
 npm run dev
 ```
 
-Hoac:
+Run in production mode:
 
 ```bash
 npm start
 ```
 
-## 3. Frontend pages
+## Mascot Assets
 
-- GET /
-  - Trang chu hien thi theo cookie theme light/dark
-  - Hien trang thai login hien tai
-  - Hien toast UX khi doi theme hoac co trang thai tu redirect
-- GET /login
-  - Form login username/password
-  - Hien thong bao loi dang nhap than thien hon
-- GET /profile
-  - Trang ca nhan co username, loginTime, profileViewCount
-  - Moi lan F5 tang profileViewCount trong cung session
-- GET /logout
-  - Dang xuat va quay ve /login
-- GET /set-theme/:theme
-  - Chuyen theme light/dark va luu cookie
+Recommended PNG files:
 
-Theme label tren giao dien:
-- light = Vanilla Day
-- dark = Midnight Cat
+- `public/assets/characters/choco-mascot.png`
+- `public/assets/characters/vanilla-mascot.png`
 
-## 4. Tai khoan test
+If PNG files are missing, the UI automatically falls back to the SVG placeholders.
 
-- alice / alice123
-- bob / bob123
-- demo / demo123
+## Manual UX Checklist
 
-## 5. API compatibility
+1. Open `http://localhost:3000`.
+2. Switch theme using `Vanilla Day` and `Midnight Cat`.
+3. Go to login and sign in with a demo account.
+4. Open profile and refresh multiple times to see the counter increase.
+5. Click logout and verify profile is blocked afterward.
+6. Visit an unknown route (for example `/abcxyz`) to confirm the 404 page.
 
-Cac route van ho tro JSON cho test API (client gui Accept: application/json hoac Content-Type: application/json):
+## Automated Tests (Playwright)
 
-- GET /
-- GET /login
-- POST /login
-- GET /profile
-- GET /logout
-- GET /set-theme/:theme
-
-## 6. UX enhancements
-
-- Toast thong bao trang thai (login, logout, doi theme, auth required)
-- Chuyen theme muot hon bang client-side transition (khong reload trang)
-- Trang 404 va 500 than thien cho browser
-- API client van nhan JSON error/status nhu cu
-- Them khu vuc mascot trong giao dien (assets mau tai public/assets/characters)
-
-Su dung PNG mascot (khuyen nghi):
-- Dat file choco vao: public/assets/characters/choco-mascot.png
-- Dat file vanilla vao: public/assets/characters/vanilla-mascot.png
-- Neu PNG chua co, giao dien tu fallback ve SVG mau de tranh vo layout
-
-## 7. Test frontend nhanh
-
-1. Mo http://localhost:3000
-2. Bam Vanilla Day hoac Midnight Cat de doi theme
-3. Vao Login va dang nhap bang tai khoan demo
-4. Vao Profile va refresh nhieu lan de thay counter tang
-5. Bam Logout, sau do thu truy cap /profile de kiem tra bi redirect ve /login
-6. Thu mo duong dan sai, vi du /abcxyz, de thay trang 404 than thien
-
-## 8. Test tu dong (Playwright)
-
-Chay bo test UX + API compatibility:
+Run the full suite:
 
 ```bash
 npm test
 ```
 
-Mo Playwright UI mode:
+Run Playwright UI mode:
 
 ```bash
 npm run test:ui
 ```
 
-Noi dung da duoc cover boi test:
-- Home page render theme Nekopara + mascot block
-- Theme switch mượt (client-side) va toast
-- Login -> profile -> counter tang -> logout
-- Browser 404 page
-- API mode: /profile unauth = 401 JSON
-- API mode: /set-theme/invalid = 400 JSON
+Current coverage includes:
+
+- Home page rendering with Nekopara UI elements
+- Smooth theme switching and toast feedback
+- Login -> profile -> counter -> logout flow
+- Browser 404 page behavior
+- JSON API behavior for unauthorized profile access (`401`)
+- JSON API behavior for invalid theme values (`400`)
+
+## Notes
+
+- This project is intentionally database-free for learning session and cookie behavior.
+- Authentication data is mocked in-memory.
