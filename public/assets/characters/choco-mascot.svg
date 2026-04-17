@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 260" role="img" aria-label="Choco mascot">
+  <defs>
+    <linearGradient id="bgA" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ffe2f0" />
+      <stop offset="100%" stop-color="#ffc2dc" />
+    </linearGradient>
+  </defs>
+  <rect x="12" y="12" width="196" height="236" rx="38" fill="url(#bgA)" stroke="#a54878" stroke-width="4" />
+  <ellipse cx="110" cy="106" rx="58" ry="52" fill="#fef8ff" />
+  <polygon points="72,64 48,34 87,44" fill="#6a314e" />
+  <polygon points="148,64 172,34 133,44" fill="#6a314e" />
+  <circle cx="89" cy="104" r="8" fill="#4c2039" />
+  <circle cx="131" cy="104" r="8" fill="#4c2039" />
+  <ellipse cx="110" cy="124" rx="10" ry="6" fill="#ff87b3" />
+  <path d="M80 142c12 10 48 10 60 0" stroke="#a54878" stroke-width="4" stroke-linecap="round" fill="none" />
+  <rect x="72" y="164" width="76" height="44" rx="18" fill="#5f2f4a" />
+  <path d="M88 174h44v24H88z" fill="#fef8ff" />
+  <circle cx="110" cy="240" r="8" fill="#a54878" />
+</svg>
